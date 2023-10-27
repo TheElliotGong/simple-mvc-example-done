@@ -8,7 +8,7 @@
   <title>{{title}}</title>
 </head>
 <body>
-  <h1>Welcome to page 3</h1>
+  <h1>Welcome to page 3 <br>You can create and manage 'Dogs' on this page.</h1>
   
   <!-- links or URLs are always GET resources as they are getting (retrieving) a resource -->
   <a href="/">Home</a>
@@ -25,6 +25,13 @@
     <label for="age">Age:</label>
     <input type="number" name="age" value="">
     <input type="submit" value="submit">
+  </form>
+  <br>
+  <br>
+  <form action="findByName" method="GET">
+    <label for="name">Name to search for:</label>
+    <input type="text" name="name" value="">
+    <input type="submit" value="Submit">
   </form>
 </body>
 </html>
