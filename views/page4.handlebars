@@ -1,0 +1,25 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>{{title}}</title>
+</head>
+
+<body>
+  <h1>Welcome to Page 4. All dogs will show up here.</h1>
+  <a href="/">Home</a>
+  <a href="/page1">Page 1</a>
+  <a href="/page2">Page 2</a>
+  <a href="/page3">Page 3</a>
+
+  {{#if dogs}}
+  <h2>Dogs</h2>
+  <ul>
+    {{#each dogs}}
+    <li>{{this.name}} is a {{this.breed}} and is {{this.age}} years old.</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</body>
+
+</html>
