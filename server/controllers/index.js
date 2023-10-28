@@ -84,14 +84,10 @@ const hostPage3 = (req, res) => {
 };
 
 const hostPage4 = async (req, res) => {
-  try
-  {
-    
+  try {
     const docs = await Dog.find({}).lean().exec();
     return res.render('page4', { dogs: docs });
-  }
-  catch(err)
-  {
+  } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'failed to find dogs.' });
   }
@@ -152,7 +148,6 @@ const setName = async (req, res) => {
     return res.status(500).json({ error: 'failed to create cat' });
   }
 
-
   /* After our await has resolved, and if no errors have occured during the await, we will end
      up here. We will update our lastAdded cat to the one we just added. We will then send that
      cat's data to the client.
@@ -163,7 +158,7 @@ const setName = async (req, res) => {
     beds: lastAdded.bedsOwned,
   });
 };
-const createDog = async(req, res) => {
+const createDog = async (req, res) => {
   if (!req.body.firstname || !req.body.lastname || !req.body.breed || !req.body.age) {
     // If they are missing data, send back an error.
     return res.status(400).json({ error: 'firstname, lastname, breed, and age are all required' });
@@ -172,7 +167,7 @@ const createDog = async(req, res) => {
   const dogData = {
     name: `${req.body.firstname} ${req.body.lastname}`,
     breed: req.body.breed,
-    age: req.body.age
+    age: req.body.age,
   };
 
   const newDog = new Dog(dogData);
@@ -184,11 +179,11 @@ const createDog = async(req, res) => {
   }
 
   lastAdded = newDog;
-  // return res.json({
-  //   name: lastAdded.name,
-  //   breed: lastAdded.breed,
-  //   age: lastAdded.age
-  // });
+  return res.json({
+    name: lastAdded.name,
+    breed: lastAdded.breed,
+    age: lastAdded.age,
+  });
 };
 // Function to handle searching a cat by name.
 const searchName = async (req, res) => {
@@ -243,16 +238,20 @@ const searchDog = async (req, res) => {
   }
 
   let doc;
-  try
-  {
+  try {
     doc = await Dog.findOne({ name: req.query.name }).exec();
-  }
-  catch (err)
-  {
+  } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
   }
+  if (!doc) {
+    return res.json({ error: 'No dog found' });
+  }
 
+  // Otherwise, we got a result and will send it back to the user.
+  doc.age++;
+  await doc.save();
+  return res.json({ name: doc.name, breed: doc.breed, age: doc.age });
 };
 /* A function for updating the last cat added to the database.
    Usually database updates would be a more involved process, involving finding
@@ -311,5 +310,5 @@ module.exports = {
   searchName,
   searchDog,
   notFound,
-  createDog
+  createDog,
 };
