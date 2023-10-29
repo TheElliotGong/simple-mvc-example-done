@@ -158,12 +158,18 @@ const setName = async (req, res) => {
     beds: lastAdded.bedsOwned,
   });
 };
+/**
+ * This function creates a dog using the given parameters
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const createDog = async (req, res) => {
   if (!req.body.firstname || !req.body.lastname || !req.body.breed || !req.body.age) {
     // If they are missing data, send back an error.
     return res.status(400).json({ error: 'firstname, lastname, breed, and age are all required' });
   }
-
+  //Create new dog model with data and save it to the database.
   const dogData = {
     name: `${req.body.firstname} ${req.body.lastname}`,
     breed: req.body.breed,
@@ -177,7 +183,7 @@ const createDog = async (req, res) => {
     console.log(err);
     return res.status(500).json({ error: 'failed to create dog' });
   }
-
+  //Update the last added dog and send the data to the client.
   lastAdded = newDog;
   return res.json({
     name: lastAdded.name,
@@ -231,13 +237,20 @@ const searchName = async (req, res) => {
   // Otherwise, we got a result and will send it back to the user.
   return res.json({ name: doc.name, beds: doc.bedsOwned });
 };
-
+/**
+ * This function searches up a dog object by name
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const searchDog = async (req, res) => {
   if (!req.query.name) {
     return res.status(400).json({ error: 'Name is required to perform a search' });
   }
 
   let doc;
+  //See if there is a dog model within the database that possesses the given name.
+  //If there is, increment the age of the dog by 1, otherwise throw an error.
   try {
     doc = await Dog.findOne({ name: req.query.name }).exec();
   } catch (err) {

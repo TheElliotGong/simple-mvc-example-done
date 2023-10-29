@@ -15,7 +15,7 @@
   <a href="/page1">Page 1</a>
   <a href="/page2">Page 2</a>
   <a href = "/page4">Page 4</a>
-
+  {{!-- Form for finding  --}}
   <form action = "/createDog" method="POST">
     <label for="firstname">First name:</label>
     <input type="text" name="firstname" value="">
@@ -29,7 +29,7 @@
   </form>
   <br>
   <br>
-  <form action="findDog" method="GET">
+  <form action="/findDog" method="GET">
     <label for="name">Name to search for:</label>
     <input type="text" name="name" value="">
     <input type="submit" value="Submit">
