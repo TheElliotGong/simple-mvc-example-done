@@ -1,7 +1,7 @@
 // pull in our models. This will automatically load the index.js from that folder
 const models = require('../models');
 
-// get the Cat model
+// get the Cat and Dog models
 const { Cat } = models;
 const { Dog } = models;
 // default fake data so that we have something to work with until we make a real Cat
@@ -10,7 +10,7 @@ const defaultData = {
   bedsOwned: 0,
 };
 
-// object for us to keep track of the last Cat we made and dynamically update it sometimes
+// object for us to keep track of the last Animal we made and dynamically update it sometimes
 let lastAdded = new Cat(defaultData);
 
 // Function to handle rendering the index page.
@@ -82,9 +82,10 @@ const hostPage2 = (req, res) => {
 const hostPage3 = (req, res) => {
   res.render('page3');
 };
-
+//Function to render the templated page4.
 const hostPage4 = async (req, res) => {
   try {
+    //Search for all created dog models and render them to the page.
     const docs = await Dog.find({}).lean().exec();
     return res.render('page4', { dogs: docs });
   } catch (err) {
