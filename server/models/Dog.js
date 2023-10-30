@@ -1,7 +1,14 @@
+/**
+ * Author: Elliot Gong
+ * Purpose: Create a new dog model similar to the cats one.
+ * Date: 10/30/2023
+ */
+
+
 const mongoose = require('mongoose');
 
 let dogModel = {};
-
+//Declare a new model for a Dog object.
 const dogSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -26,7 +33,7 @@ const dogSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
+//Create and export the dog model.
 dogModel = mongoose.model('Dog', dogSchema);
 
 module.exports = dogModel;

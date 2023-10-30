@@ -1,3 +1,9 @@
+/**
+ * Author: Elliot Gong
+ * Purpose: Add new code to handle 'Dog' functions.
+ * Date: 10/30/2023
+ */
+
 // pull in our models. This will automatically load the index.js from that folder
 const models = require('../models');
 

@@ -11,8 +11,7 @@ const router = (app) => {
   // app.get handles GET requests
   // app.post handles POST requests
 
-  // when someone goes to the /page1 page, call controllers.page1
-  // For example, www.webpage.com/page1, it will route to controllers.page1
+  // establish all the urls that the app will respond to.
   app.get('/page1', controllers.page1);
   app.get('/page2', controllers.page2);
   app.get('/page3', controllers.page3);
