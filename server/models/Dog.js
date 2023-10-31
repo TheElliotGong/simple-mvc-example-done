@@ -4,7 +4,6 @@
  * Date: 10/30/2023
  */
 
-
 const mongoose = require('mongoose');
 
 let dogModel = {};

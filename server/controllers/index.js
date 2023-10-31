@@ -191,7 +191,6 @@ const createDog = async (req, res) => {
     return res.status(500).json({ error: 'failed to create dog' });
   }
   //Update the last added dog and send the data to the client.
-  lastAdded = newDog;
   return res.json({
     name: lastAdded.name,
     breed: lastAdded.breed,
@@ -245,10 +244,10 @@ const searchName = async (req, res) => {
   return res.json({ name: doc.name, beds: doc.bedsOwned });
 };
 /**
- * This function searches up a dog object by name
+ * This function searches up a dog object by name and increases its age by 1.
  * @param {*} req 
  * @param {*} res 
- * @returns 
+ * @returns the json format of the dog object.
  */
 const searchDog = async (req, res) => {
   if (!req.query.name) {

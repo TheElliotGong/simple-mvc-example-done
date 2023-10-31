@@ -33,6 +33,8 @@ const router = (app) => {
   app.post('/createDog', controllers.createDog);
   // When someone POSTS to /updateLast, call controllers.updateLast
   app.post('/updateLast', controllers.updateLast);
+  //catch for any other unidentified POST requests.
+  app.post('/*', controllers.notFound);
 };
 
 // export the router function

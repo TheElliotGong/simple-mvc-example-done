@@ -4,15 +4,19 @@
   <meta charset="utf-8" />
   <title>{{title}}</title>
 </head>
-
+<!--
+  Author: Elliot Gong
+  Purpose: Have a new page that showcases the dog objects.
+  Date: 10/30/2023
+-->
 <body>
+  <!--Print out dogs if there are any in the data base.-->
   <h1>Welcome to Page 4. All dogs will show up here.</h1>
   <br>
   <a href="/">Home</a>
   <a href="/page1">Page 1</a>
   <a href="/page2">Page 2</a>
   <a href="/page3">Page 3</a>
-  <!-->If there are any dogs in the database, show them.</-->
   {{#if dogs}}
   <h2>Dogs</h2>
   <ul>
