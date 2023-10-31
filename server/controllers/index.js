@@ -192,9 +192,9 @@ const createDog = async (req, res) => {
   }
   //Update the last added dog and send the data to the client.
   return res.json({
-    name: lastAdded.name,
-    breed: lastAdded.breed,
-    age: lastAdded.age,
+    name: newDog.name,
+    breed: newDog.breed,
+    age: newDog.age,
   });
 };
 // Function to handle searching a cat by name.
