@@ -104,10 +104,7 @@ const getName = (req, res) => res.json({ name: lastAdded.name });
 
 // Function to create a new cat in the database
 const setName = async (req, res) => {
-  /* If we look at views/page2.handlebars, the form has inputs for a firstname, lastname
-     and a number of beds. When this POST request is sent to us, the bodyParser plugin
-     we configured in app.js will store that information in req.body for us.
-  */
+ 
   if (!req.body.firstname || !req.body.lastname || !req.body.beds) {
     // If they are missing data, send back an error.
     return res.status(400).json({ error: 'firstname, lastname and beds are all required' });
@@ -123,27 +120,12 @@ const setName = async (req, res) => {
     bedsOwned: req.body.beds,
   };
 
-  /* Once we have our cat object set up. We want to turn it into something the database
-     can understand. To do this, we create a new instance of a Cat using the Cat model
-     exported from the Models folder.
 
-     Note that this does NOT store the cat in the database. That is the next step.
-  */
   const newCat = new Cat(catData);
 
-  /* We have now setup a cat in the right format. We now want to store it in the database.
-     Again, because the database and node server are separate things entirely we have no
-     way of being sure the database will work or respond. Because of that, we wrap our code
-     in a try/catch.
-  */
+
   try {
-    /* newCat is a version of our catData that is database-friendly. If you print it, you will
-       see it has extra information attached to it other than name and bedsOwned. One thing it
-       now has is a .save() function. This function will intelligently add or update the cat in
-       the database. Since we have never saved this cat before, .save() will create a new cat in
-       the database. All calls to the database are async, including .save() so we will await the
-       databases response. If something goes wrong, we will end up in our catch() statement.
-    */
+
     await newCat.save();
   } catch (err) {
     /* If something goes wrong while communicating with the database, log the error and send
@@ -216,18 +198,7 @@ const searchName = async (req, res) => {
   */
   let doc;
   try {
-    /* Just like Cat.find() in hostPage1() above, Mongoose models also have a .findOne()
-       that will find a single document in the database that matches the search parameters.
-       This function is faster, as it will stop searching after it finds one document that
-       matches the parameters. The downside is you cannot get multiple responses with it.
 
-       One of three things will occur when trying to findOne in the database.
-        1) An error will be thrown, which will stop execution of the try block and move to
-            the catch block.
-        2) Everything works, but the name was not found in the database returning an empty
-            doc object.
-        3) Everything works, and an object matching the search is found.
-    */
     doc = await Cat.findOne({ name: req.query.name }).exec();
   } catch (err) {
     // If there is an error, log it and send the user an error message.
@@ -281,19 +252,7 @@ const updateLast = (req, res) => {
   // First we will update the number of bedsOwned.
   lastAdded.bedsOwned++;
 
-  /* Remember that lastAdded is a Mongoose document (made on line 14 if no new
-     ones were made after the server started, or line 116 if there was). Mongo
-     documents have an _id, which is a globally unique identifier that distinguishes
-     them from other documents. Our mongoose document also has this _id. When we
-     call .save() on a document, Mongoose and Mongo will use the _id to determine if
-     we are creating a new database entry (if the _id doesn't already exist), or
-     if we are updating an existing entry (if the _id is already in the database).
 
-     Since lastAdded is likely already in the database, .save() will update it rather
-     than make a new cat.
-
-     We can use async/await for this, or just use standard promise .then().catch() syntax.
-  */
   const savePromise = lastAdded.save();
 
   // If we successfully save/update them in the database, send back the cat's info.
